@@ -13,5 +13,5 @@ This project uses deep learning to classify text into one of six emotions:
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/emotion-classifier.git
+git clone https://github.com/Logicrithm/emotion-classifier.git
 cd emotion-classifier
