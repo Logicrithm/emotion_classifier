@@ -1,5 +1,5 @@
-streamlit
-tensorflow>=2.11
-scikit-learn
+tensorflow==2.11.0
 numpy
+scikit-learn
+streamlit
 pickle-mixin
