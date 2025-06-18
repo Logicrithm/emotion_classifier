@@ -1,17 +1,22 @@
-# Emotion Classifier 🧠💬
+# Emotion Classifier 🤖
 
-This project uses deep learning to classify text into one of six emotions:
-**joy, sadness, anger, fear, love, surprise**
+This is an LSTM-based emotion classification model trained on a labeled dataset of sentences to predict emotions like **joy, sadness, anger, fear, love, surprise**.
 
-## 📦 Features
-- Bidirectional LSTM using TensorFlow/Keras
-- Trained on labeled emotion dataset
-- Real-time prediction from user input
+### 🔍 Dataset
+- Source: [Kaggle Emotion Dataset](https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp)
+- Preprocessed into training and validation sets
 
-## 🔧 How to Use
+### 🧠 Model
+- **Embedding layer** + **LSTM**
+- **Dense** + **Softmax** for classification
+- Achieved ~90% validation accuracy
 
-### 1. Clone the repo
+### 🚀 Deployment
+- Deployed using **Streamlit Cloud**
+- [🖥 View Live App](https://emotionclassifier-tjayjmiugzk9qnhv7fqb3z.streamlit.app/)
 
+### 📦 Requirements
 ```bash
-git clone https://github.com/Logicrithm/emotion-classifier.git
-cd emotion-classifier
+streamlit
+tensorflow
+numpy
