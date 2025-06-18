@@ -1,30 +1,42 @@
 import streamlit as st
+import tensorflow as tf
 import numpy as np
 import pickle
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# Load model and assets
-model = load_model("emotion_model.h5")
-with open("tokenizer.pkl", "rb") as f:
-    tokenizer = pickle.load(f)
-with open("label_encoder.pkl", "rb") as f:
-    label_encoder = pickle.load(f)
+# Load tokenizer and label encoder
+with open("tokenizer.pkl", "rb") as handle:
+    tokenizer = pickle.load(handle)
 
-# App UI
+with open("label_encoder.pkl", "rb") as enc:
+    label_encoder = pickle.load(enc)
+
+# Load the trained model
+model = tf.keras.models.load_model("emotion_model.h5")
+
+# Max length used during training
+MAX_LEN = 100
+
+# App Title
 st.title("🧠 Emotion Classifier")
-st.write("Enter a sentence to predict the emotion it carries.")
+st.write("Enter a sentence and the model will predict the underlying emotion.")
 
-user_input = st.text_area("Your sentence here:")
+# User input
+user_input = st.text_area("Enter text:", "")
 
-if st.button("Predict"):
+# Predict button
+if st.button("Predict Emotion"):
     if user_input.strip() == "":
         st.warning("Please enter some text.")
     else:
-        seq = tokenizer.texts_to_sequences([user_input])
-        padded = pad_sequences(seq, maxlen=50, padding='post', truncating='post')
+        # Preprocess input
+        sequence = tokenizer.texts_to_sequences([user_input])
+        padded = tf.keras.preprocessing.sequence.pad_sequences(sequence, maxlen=MAX_LEN)
+
+        # Predict
         prediction = model.predict(padded)
-        predicted_emotion = label_encoder.inverse_transform([np.argmax(prediction)])
-        
-        st.success(f"💬 Predicted Emotion: **{predicted_emotion[0]}**")
+        predicted_class = np.argmax(prediction)
+        predicted_label = label_encoder.inverse_transform([predicted_class])[0]
+
+        # Show results
+        st.success(f"🗣 Emotion: **{predicted_label.capitalize()}**")
         st.bar_chart(prediction[0])
