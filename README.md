@@ -17,6 +17,8 @@ This is an LSTM-based emotion classification model trained on a labeled dataset 
 
 ### 📦 Requirements
 ```bash
-streamlit
 tensorflow
 numpy
+scikit-learn
+streamlit
+pickle-mixin
